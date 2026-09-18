@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fibroperturb"
+version = "0.1.0"
+description = "Leakage-aware benchmark for unseen TF activation response prediction in Hs27 fibroblasts."
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "anndata>=0.10.8",
+  "h5py>=3.11",
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pyyaml>=6.0",
+  "scanpy>=1.10",
+  "scikit-learn>=1.5",
+  "scipy>=1.13",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.2", "ruff>=0.6"]
+app = ["streamlit>=1.38", "plotly>=5.23"]
+
+[project.scripts]
+fibroperturb-inspect = "fibroperturb.ingest:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fibroperturb"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
