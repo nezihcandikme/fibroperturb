@@ -1,21 +1,31 @@
-# Data provenance and handling
+# Data notes
 
-## V1 matrix
+## What we are downloading
 
-- Analysis set: `IGVFDS2001NDKP`
-- Description: CRISPRa Perturb-seq targeting human transcription-factor genes/TSSs in Hs27 fibroblasts
-- Downloaded file: `filtered_feature_bc_matrix.h5`
-- Expected content: filtered cell-by-gene-and-guide matrix
-- Genome/reference: GRCh38 / GENCODE 32
-- Attribution: Tom Norman, MSKCC / Christina Leslie (as listed in IGVF)
+For the first pass, we are using a public matrix from the Hs27 CRISPRa Perturb-seq experiment.
 
-The downloaded file must be accompanied by its source URL, download date, MD5 checksum, and displayed license/terms in `results/data_inventory.json` before any public model release.
+- **Analysis set:** `IGVFDS2001NDKP`
+- **File:** `filtered_feature_bc_matrix.h5`
+- **What it should contain:** filtered single cells, gene-expression features, and guide-capture features
+- **Reference:** GRCh38 / GENCODE 32
+- **Listed attribution:** Tom Norman, MSKCC / Christina Leslie
 
-## Non-negotiable checks
+The file belongs locally in `data/raw/`; it is intentionally not uploaded to GitHub.
 
-1. Confirm the matrix contains both Gene Expression and CRISPR Guide Capture feature types.
-2. Determine how singlet guide assignments and non-targeting controls are encoded.
-3. Determine batch/lane/sample information required for matched-control comparisons.
-4. Do not claim the aggregate matrix contains only one biological context until metadata verifies it.
+## Before we analyse anything
 
-Public availability is not automatically commercial permission. Data licensing must be checked on the source record before product use.
+We need to answer a few basic questions from the actual file and its accompanying metadata:
+
+- Are both gene expression and guide capture present?
+- How are cells assigned to individual guides?
+- Which guides correspond to non-targeting controls?
+- Is there batch or lane information that matters for fair comparisons?
+- Does the aggregate matrix include exactly the context we think it includes?
+
+The first inspection script is meant to answer only the first question safely. The rest will be handled after we see the file.
+
+## Keeping a record
+
+Once we download it, we will save the source link, download date, checksum, and displayed license/terms in `results/data_inventory.json`.
+
+Publicly downloadable data is not automatically cleared for every kind of commercial use. That matters later, if this ever moves beyond an open research project.
