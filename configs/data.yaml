@@ -1,8 +1,0 @@
-dataset_name: Southard_et_al_Hs27_CRISPRa_PerturbSeq
-source_analysis_set: IGVFDS2001NDKP
-matrix_path: data/raw/hs27_filtered_feature_bc_matrix.h5
-expected_feature_types:
-  - Gene Expression
-  - CRISPR Guide Capture
-expected_md5: 1e34f6d9c62d47378c52ab0c201a8001
-source_url: https://data.igvf.org/analysis-sets/IGVFDS2001NDKP/
