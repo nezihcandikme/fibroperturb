@@ -9,7 +9,6 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-import scanpy as sc
 
 
 def file_md5(path: Path, chunk_size: int = 1024 * 1024) -> str:
@@ -28,6 +27,14 @@ def summarize_feature_types(feature_types: list[str]) -> dict[str, int]:
 
 def inspect_10x_h5(matrix_path: Path) -> dict[str, Any]:
     """Read a 10x HDF5 matrix and return only structural metadata."""
+    try:
+        import scanpy as sc
+    except ImportError as error:
+        raise ImportError(
+            "Reading a 10x HDF5 matrix requires the project dependencies. "
+            "Install them with `pip install -e .[dev]`."
+        ) from error
+
     adata = sc.read_10x_h5(matrix_path, gex_only=False)
     if "feature_types" not in adata.var.columns:
         raise ValueError("Missing `feature_types`; this is not the expected cell-by-gene-and-guide matrix.")
