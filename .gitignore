@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 *.py[cod]
+.worktrees/
 
 # Source data and derived matrices are reproducible downloads, not Git objects.
 data/raw/*
