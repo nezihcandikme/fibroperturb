@@ -1,0 +1,26 @@
+FIBROPERTURB V5 — SINGLE UPDATE
+
+This is a PATCH for the current FibroPerturb project, not a standalone cloned repository.
+It contains the full updated frontend/src, UI tests, two local Python scripts and scientific notes.
+It DOES NOT replace your existing package.json, node_modules, public/demo-data/targets.json,
+raw Hs27 dataset, .venv or results directory.
+
+Download the ZIP, then in the Terminal:
+
+cd ~/Documents/fibroperturb
+cp -R frontend/src ~/Desktop/fibroperturb-src-backup-v5
+unzip -o ~/Downloads/fibroperturb-v5-update.zip -d .
+cd frontend
+npm run build
+npm run dev
+
+Open http://localhost:5173/#explorer
+
+Optional local-only RNA/guide pilot (not validated differential expression):
+cd ~/Documents/fibroperturb
+python -m pip install numpy h5py
+python scripts/pilot_expression.py
+
+IMPORTANT: the local pilot reads your large raw HDF5 from data/raw/; it may take time.
+Its output stays in results/ and is NOT published to the website.
+See docs/SCIENTIFIC_STATUS.md for the scientific boundaries and next validations.

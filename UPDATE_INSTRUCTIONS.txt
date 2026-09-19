@@ -1,0 +1,18 @@
+FibroPerturb Explorer V2 — update only, not a complete repository.
+
+1. Stop the Vite server (Ctrl+C).
+2. Open ~/Documents/fibroperturb in VS Code.
+3. Unzip this archive into ~/Documents/fibroperturb, replacing the included frontend/src files.
+   The archive deliberately does not contain node_modules, .venv, raw data, or your existing JSON file.
+4. In VS Code terminal:
+   cd ~/Documents/fibroperturb/frontend
+   npm run build
+   npm run dev
+5. Visit http://localhost:5173/#explorer
+
+Changes: one coherent Explorer with target picker, contextual 3D illustration,
+short bilingual gene descriptions for selected curated targets, educational
+transcription explainer, and real guide-capture summaries. Most target names
+have no curated description yet; the app says so instead of inventing one.
+This version does NOT calculate gene expression changes, model predictions,
+or target-specific biological effects in the cell illustration.

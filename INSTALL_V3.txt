@@ -1,0 +1,43 @@
+FibroPerturb Explorer V3 — incremental update (19 September 2026)
+
+WHAT IT DOES
+- Keeps your existing Python scripts, Hs27 matrix, guide-capture CSVs and local git history untouched.
+- Updates the React landing page styling, searchable gene explorer, 3D schematic fibroblast,
+  three-step molecular mechanism, and bilingual explanations.
+- Preserves the real Hs27 aggregated measurements from your existing
+  frontend/public/demo-data/targets.json; this ZIP deliberately does not replace them.
+- No fictional downstream gene-expression changes, validated guide assignments, or AI predictions.
+
+INSTALL ON YOUR MAC
+1. In VS Code, save or commit any unfinished frontend changes first. This ZIP overwrites
+   ONLY the listed frontend source, CSS, HTML and test files, not the raw dataset.
+2. Place fibroperturb-v3-update.zip in ~/Downloads.
+3. Open a terminal and run:
+     cd ~/Documents/fibroperturb
+     unzip -o ~/Downloads/fibroperturb-v3-update.zip -d .
+     cd frontend
+     npm run build
+     npm run dev
+4. Open http://localhost:5173/ and scroll to Explorer. Search AATF or SMAD3,
+   change the language, rotate/zoom the cell, and switch molecular steps.
+5. If data is missing, ensure frontend/public/demo-data/targets.json exists;
+   from the repo root rerun: python scripts/export_demo_data.py.
+
+FILES UPDATED
+frontend/src/App.css
+frontend/src/index.css
+frontend/src/PerturbationExplorer.tsx
+frontend/src/TranscriptionViewer.tsx
+frontend/src/cell/CellModel.tsx
+frontend/index.html
+frontend/tests/geneInfo.test.mjs
+frontend/tests/v3.test.mjs
+
+The user-supplied ZIP omitted tsconfig files. Keep your EXISTING local tsconfig.json,
+tsconfig.app.json, tsconfig.node.json and vite.config.ts. Do not replace your package.json.
+
+LIMITATIONS
+The cell is a purpose-built illustrative geometry, not a microscopy reconstruction.
+The schematic describes general CRISPRa and transcription, not target-specific measured response.
+The explorer currently displays GUIDE-CAPTURE summaries only; experimental expression
+changes require source annotations/controls and proper analysis, not a cosmetic UI change.
