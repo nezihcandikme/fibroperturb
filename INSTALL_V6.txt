@@ -1,0 +1,17 @@
+FibroPerturb V6 — additive update over a working V5
+
+1) Save your work, then run from the repository root:
+   git status --short
+   git add -A && git commit -m "chore: checkpoint before V6"  # only if your staged changes are intended
+2) Extract this ZIP INTO ~/Documents/fibroperturb (not into frontend/).
+3) Frontend: cd frontend && npm run build && npm run dev
+4) Scientific data preflight (runs locally, no upload needed):
+   cd ~/Documents/fibroperturb
+   .venv/bin/python scripts/assay_preflight.py
+   Read results/assay_preflight.json locally. Do NOT place it under frontend/public/.
+5) Tests: .venv/bin/python -m unittest discover -s scripts/tests -p 'test_*.py'
+          cd frontend && node --test tests/*.test.mjs
+
+The preflight only reads 10x matrix SHAPE and FEATURE METADATA, not expression counts.
+It is NOT gene activation validation. Next steps require experiment metadata for
+batch, replicates, cell-level guide calls, and valid control assignments.

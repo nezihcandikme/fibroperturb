@@ -27,3 +27,53 @@ Before promoting any expression results into the website: obtain experiment-leve
 ## Build status
 
 The included JS and Python tests exercise data contracts and synthetic pilot input. Full React browser/TypeScript build still needs to run on the user's Mac with the installed npm dependencies: `cd frontend && npm run build && npm run dev`. No claim is made that the 3D result was visually inspected in a browser here.
+
+## V6: Hs27 metadata preflight, run locally
+
+Run `python scripts/assay_preflight.py` at the repository root with the Python
+virtual environment already configured for the project. The tool reads matrix
+shape and feature annotations without accessing sparse cell count vectors. It
+checks that the file contains Gene Expression and CRISPR Guide Capture features,
+counts targets/control features, and writes an aggregate JSON to `results/`.
+A detected non-targeting feature is **not** a verified control assignment. The
+report does **not** establish gene activation, guide-calling quality, biological
+replication, control comparability, or differential expression. Keep it local.
+
+Before integrating experimental RNA effects into the product, obtain the
+experimental guide-call matrix and conditions/batch/replicate annotations,
+then assess per-guide agreement and perturbation-vs-control contrasts with an
+appropriate validated analysis. No predictive model is added by V6.
+
+## V7: IGVF published summary import (local, explicitly provisional interpretation)
+
+Two new input files may be stored **only locally** under `data/raw/`:
+`IGVFFI6892KBHM.tsv.gz` (guide-by-gene numerical result matrix) and
+`IGVFFI2104BKIF.tsv.gz` (promoter-level statistics). They are published
+results associated with https://data.igvf.org/analysis-sets/IGVFDS2001NDKP/.
+The file headers were verified from the locally supplied terminal output.
+
+To generate the optional web preview on the Mac (after installing V7):
+
+```bash
+cd ~/Documents/fibroperturb
+.venv/bin/python scripts/export_published_results.py
+cd frontend && npm run build && npm run dev
+```
+
+This command *streams* compressed rows and exports only top-20 absolute
+numerical values per guide and the separate promoter-level statistics when
+an exact guide ID matches. No barcodes, per-cell RNA counts or raw HDF5 data
+are copied. A missing JSON export results in a visible instruction panel, not
+fabricated results. The script rejects duplicate IDs, invalid widths and
+nonfinite numeric values. It does not pretend the 307 statistical-guide records
+cover every guide or that promoter p-values are significance tests for each
+of the 4,914 measured gene columns. The output's `expression_effects_validated`
+is intentionally `false`; source methods/normalization, score direction,
+perturbation and control assignment, replicates and QC still need verification.
+The site calls these "published numerical results", not log fold changes or
+validated causal effects. Top-absolute-value *previews* are not significance
+rankings; genes absent from a preview are not necessarily absent from the matrix.
+
+The JSON is a bounded *published aggregate result* summary. Before publicly
+hosting or reusing published results, verify IGVF reuse terms, attribution and
+methods, and check whether guide identifiers are appropriate for public display.
